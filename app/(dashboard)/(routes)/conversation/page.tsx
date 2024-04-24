@@ -10,10 +10,8 @@ import { formSchema } from './constants';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import ChatCompletionMessageParam  from "openai";
 import { useState,useEffect } from 'react';
 import axios from "axios"
-import ChatCompletionRequestMessage  from 'openai';
 import { Empty } from '@/components/empty';
 import Loader from '@/components/loader';
 import { cn } from '@/lib/utils';
@@ -21,11 +19,7 @@ import { UserAvtar } from '@/components/user-avtar';
 import { OrangeCatAvtar } from '@/components/orange-cat-avtar';
 const ConversationPage = () => {
     const router =  useRouter();
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-    const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+    const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -47,7 +41,16 @@ const ConversationPage = () => {
             const response = await axios.post("/api/conversation",{
                 messages: newMessages
             });
-            setMessages((current)=>[...current,userMessage,response.data.message]);
+            const orangeCatMessage = {
+                "role":response.data.message.role,
+                "content":response.data.message.content
+            }
+            // setMessages((current)=>[...current,userMessage,response.data.message]);
+            // console.log("Response: ", response.data.message.content);
+
+            const updatedMessages = [...newMessages, orangeCatMessage];
+            // console.log("Updated Messages: ", updatedMessages);
+            setMessages(updatedMessages);
             form.reset();
         }
         catch(err){
