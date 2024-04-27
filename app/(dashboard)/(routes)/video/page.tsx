@@ -28,7 +28,7 @@ const VideoPage = () => {
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         try{
             setVideo(undefined);
-            const response = await axios.post("/api/music",data);
+            const response = await axios.post("/api/video",data);
             setVideo(response.data[0]);
             form.reset();
         }
@@ -76,8 +76,9 @@ const VideoPage = () => {
                     )}
                     {!video && !isLoading && (
                         <Empty
-                            emptyImageUrl="/orange-cat-singing.png"
+                            emptyImageUrl="/cutecat.png"
                             label='Meow Meow Meow Meow Meeeeeooooowwww'
+                            className='relative h-96 w-72'
                         />
                     )}
                     {video && (

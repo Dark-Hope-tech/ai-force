@@ -78,6 +78,7 @@ const MusicPage = () => {
                         <Empty
                             emptyImageUrl="/orange-cat-singing.png"
                             label='Meow Meow Meow Meow Meeeeeooooowwww'
+                            className='relative h-72 w-64'
                         />
                     )}
                     {music && (

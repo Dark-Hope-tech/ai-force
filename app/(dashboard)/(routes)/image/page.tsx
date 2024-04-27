@@ -22,11 +22,6 @@ import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '@
 import { Card, CardFooter } from '@/components/ui/card';
 const ImagePage = () => {
     const router =  useRouter();
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
     const [images,setImages] = useState<string[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -139,6 +134,7 @@ const ImagePage = () => {
                             <Empty
                                 emptyImageUrl="/orange-cat-drawing.png"
                                 label='Orange Cat is waiting for your Description'
+                                className='relative h-96 w-96'
                             />
                         </div>
                     )}

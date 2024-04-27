@@ -31,7 +31,6 @@ const ConversationPage = () => {
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         try{
-            console.log("Data is", data);
             const userMessage = {
                 "role":"user",
                 "content":data.prompt
@@ -45,11 +44,8 @@ const ConversationPage = () => {
                 "role":response.data.message.role,
                 "content":response.data.message.content
             }
-            // setMessages((current)=>[...current,userMessage,response.data.message]);
-            // console.log("Response: ", response.data.message.content);
-
             const updatedMessages = [...newMessages, orangeCatMessage];
-            // console.log("Updated Messages: ", updatedMessages);
+            console.log("Updated Messages: ", updatedMessages);
             setMessages(updatedMessages);
             form.reset();
         }
@@ -98,8 +94,9 @@ const ConversationPage = () => {
                     {messages.length==0 && !isLoading && (
                         <div>
                             <Empty
-                                emptyImageUrl="/orange-cat-specs.png"
+                                emptyImageUrl="/cat_with_specs.png"
                                 label='No Conversation started with Cute CAT'
+                                className='relative h-96 w-96'
                             />
                         </div>
                     )}

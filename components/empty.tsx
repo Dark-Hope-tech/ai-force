@@ -2,11 +2,12 @@ import Image from "next/image";
 interface EmptyProps{
     label: string
     emptyImageUrl: string
+    className: string
 }
-export const Empty = ({label , emptyImageUrl}: EmptyProps) => {
+export const Empty = ({label , emptyImageUrl,className}: EmptyProps) => {
     return (  
         <div className="h-full p-20 flex flex-col items-center justify-center">
-            <div className="relative w-80 h-96">
+            <div className={className}>
                 <Image
                     src={emptyImageUrl}
                     alt="EMPTY"
