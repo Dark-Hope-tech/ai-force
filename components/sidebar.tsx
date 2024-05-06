@@ -53,8 +53,9 @@ const routes = [
 ];
 interface SidebarProps {
     apiLimit: number;
+    isPro:boolean;
 }
-const Sidebar = ({apiLimit = 0}:SidebarProps) => {
+const Sidebar = ({apiLimit = 0, isPro=false}:SidebarProps) => {
     const pathname = usePathname();
     return (
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
@@ -88,7 +89,7 @@ const Sidebar = ({apiLimit = 0}:SidebarProps) => {
                     }
                 </div>
             </div>
-            <FreeCounter apiLimit ={apiLimit}/>
+            <FreeCounter apiLimit ={apiLimit} isPro={isPro}/>
         </div>
     );
 }

@@ -20,8 +20,10 @@ import { UserAvtar } from '@/components/user-avtar';
 import { OrangeCatAvtar } from '@/components/orange-cat-avtar';
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '@/components/ui/select';
 import { Card, CardFooter } from '@/components/ui/card';
+import { useProModal } from '@/hooks/use-pro-modal';
 const ImagePage = () => {
     const router =  useRouter();
+    const proModal = useProModal();
     const [images,setImages] = useState<string[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -44,7 +46,8 @@ const ImagePage = () => {
             form.reset();
         }
         catch(err){
-            console.log("Conversation Error: ", err);
+            if(err?.response?.status == 403)
+                proModal.onOpen();
         }
         finally{
             router.refresh();

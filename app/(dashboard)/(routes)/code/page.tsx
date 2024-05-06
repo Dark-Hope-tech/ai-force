@@ -18,9 +18,11 @@ import { cn } from '@/lib/utils';
 import { UserAvtar } from '@/components/user-avtar';
 import { OrangeCatAvtar } from '@/components/orange-cat-avtar';
 import ReactMarkdown from 'react-markdown';
+import { useProModal } from '@/hooks/use-pro-modal';
 
 const CodePage = () => {
     const router =  useRouter();
+    const proModal = useProModal();
     const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -52,7 +54,8 @@ const CodePage = () => {
             form.reset();
         }
         catch(err){
-            console.log("Conversation Error: ", err);
+            if(err?.response?.status == 403)
+                proModal.onOpen();
         }
         finally{
             router.refresh();

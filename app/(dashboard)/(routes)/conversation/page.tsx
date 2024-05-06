@@ -17,7 +17,9 @@ import Loader from '@/components/loader';
 import { cn } from '@/lib/utils';
 import { UserAvtar } from '@/components/user-avtar';
 import { OrangeCatAvtar } from '@/components/orange-cat-avtar';
+import { useProModal } from '@/hooks/use-pro-modal';
 const ConversationPage = () => {
+    const proModal = useProModal();
     const router =  useRouter();
     const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +52,8 @@ const ConversationPage = () => {
             form.reset();
         }
         catch(err){
-            console.log("Conversation Error: ", err);
+            if(err?.response?.status == 403)
+                proModal.onOpen();
         }
         finally{
             router.refresh();
