@@ -45,7 +45,7 @@ const ImagePage = () => {
             setImages(urls);
             form.reset();
         }
-        catch(err){
+        catch(err:any){
             if(err?.response?.status == 403)
                 proModal.onOpen();
         }

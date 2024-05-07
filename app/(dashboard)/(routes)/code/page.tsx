@@ -53,7 +53,7 @@ const CodePage = () => {
             setMessages(updatedMessages);
             form.reset();
         }
-        catch(err){
+        catch(err:any){
             if(err?.response?.status == 403)
                 proModal.onOpen();
         }
